@@ -26,7 +26,7 @@ The best way to experience **Lunallena** on the desktop client.
     * Click on **Add Theme**.
     * Paste the following **Raw URL**:
 ```text
-https://raw.githubusercontent.com/FranzLiszt0505/Lunallena/main/Lunallena.css
+https://raw.githubusercontent.com/FranzLiszt0505/Lunallena/main/LunallenaFixed.css
 ```
 ---
 
