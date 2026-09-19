@@ -792,3 +792,24 @@ figure[data-test="now-playing-image"] {
 [class*="_sidebarTooltip_"]::after {
     display: none;
 }
+
+/* Temporary debugging reset */
+header,
+nav,
+aside,
+[role="navigation"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+/* Disable animations while debugging */
+*,
+*::before,
+*::after {
+  anima*ion-duration: 0s !important;
+  ani*ation-delay: 0s !important;
+  tran*ition-duration: 0s !important;
+}
+`*
