@@ -3,7 +3,7 @@
    Based on Lunallena v4.15 by Acercandr0
    Updated layout for current TIDAL/TidaLuna
 
-   This file contains no <br> or &gt; HTML fragments.
+   This file contains no HTML line-break or encoded selector fragments.
    It does not set a font-family, so a font changer can be used.
    ========================================================= */
 
@@ -873,3 +873,392 @@ canvas {
         margin-left: 0;
     }
 }
+
+/* =========================================================
+   LUNALLENA FIXED V2 - FINAL UI CORRECTIONS
+   1. Fully removes the left sidebar gradient/sliver
+   2. Restores centered auto-hiding top header contents
+   3. Enlarges and aligns the footer player contents
+   Keep this section at the very bottom.
+   ========================================================= */
+
+:root {
+    --player-height: 108px;
+    --player-edge: 14px;
+    --header-closed-position: -54px;
+    --header-open-position: 0px;
+}
+
+/* =========================================================
+   1. REMOVE THE LEFT SIDEBAR AND GRADIENT COMPLETELY
+   ========================================================= */
+
+[class*="_sidebarWrapper_"],
+[aria-label="Navigation sidebar"] {
+    left: calc(-1 * var(--sidebarWidth, 240px) - 30px) !important;
+    right: auto !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    background: transparent !important;
+    transform: none !important;
+}
+
+[class*="_sidebarWrapper_"]::before,
+[class*="_sidebarWrapper_"]::after,
+[aria-label="Navigation sidebar"]::before,
+[aria-label="Navigation sidebar"]::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Reclaim all native sidebar space without making the page wider. */
+#main {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    transform: none !important;
+    overflow-x: clip !important;
+}
+
+.mainContent,
+[data-test="home-page-feed"],
+[class*="feed"] {
+    left: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
+    overflow-x: clip !important;
+}
+
+/* Remove any faded edge overlays used by the old sidebar layout. */
+#main::before,
+#main::after,
+.mainContent::before,
+.mainContent::after {
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   2. CENTERED AUTO-HIDING TOP HEADER
+   ========================================================= */
+
+#mainHeader {
+    position: fixed !important;
+    top: var(--header-closed-position) !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50vw !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+
+    width: min(560px, calc(100vw - 80px)) !important;
+    min-width: 0 !important;
+    max-width: 560px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+
+    margin: 0 !important;
+    padding: 14px 18px 10px !important;
+
+    background-color: rgba(35, 35, 35, 0.58) !important;
+    border: var(--theme-border) !important;
+    border-top: none !important;
+    border-radius: 0 0 20px 20px !important;
+    box-shadow: none !important;
+    backdrop-filter: var(--blur-glass) !important;
+
+    transform: translateX(-50%) !important;
+    transform-origin: center top !important;
+    transition: top 0.32s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    z-index: 2000 !important;
+}
+
+/* A small visible strip remains at the top as the hover target. */
+#mainHeader:hover,
+#mainHeader:focus-within {
+    top: var(--header-open-position) !important;
+    margin: 0 !important;
+}
+
+/* Hide only the header contents while the panel is closed. */
+#mainHeader > * {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-4px) !important;
+    transition:
+        opacity 0.18s ease,
+        visibility 0.18s ease,
+        transform 0.18s ease !important;
+}
+
+#mainHeader:hover > *,
+#mainHeader:focus-within > * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+/* Center the actual header row and stop its children drifting. */
+#mainHeader > div,
+#mainHeader [class*="container"],
+#mainHeader [class*="content"] {
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+}
+
+#mainHeader [data-test="navigation-arrows"] {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    margin: 0 !important;
+}
+
+#mainHeader [data-test="navigation-arrows"] button {
+    width: 34px !important;
+    min-width: 34px !important;
+    max-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#mainHeader [data-type="search-field"] {
+    flex: 1 1 280px !important;
+    width: auto !important;
+    min-width: 160px !important;
+    max-width: 320px !important;
+    height: 38px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    transform: none !important;
+}
+
+/* =========================================================
+   3. LARGER, BETTER-ALIGNED MUSIC PLAYER
+   ========================================================= */
+
+[data-test="footer-player"] {
+    position: fixed !important;
+    top: auto !important;
+    right: var(--player-edge) !important;
+    bottom: var(--player-edge) !important;
+    left: var(--player-edge) !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: var(--player-height) !important;
+    min-height: var(--player-height) !important;
+    max-height: var(--player-height) !important;
+
+    margin: 0 !important;
+    padding: 14px 18px 10px !important;
+
+    background-color: rgba(28, 28, 28, 0.72) !important;
+    border: var(--theme-border) !important;
+    border-radius: 20px !important;
+    backdrop-filter: var(--blur-normal) !important;
+
+    transform: none !important;
+    scale: 1 !important;
+    rotate: 0deg !important;
+    overflow: visible !important;
+    z-index: 1800 !important;
+}
+
+/* Keep the three player columns vertically centered. */
+[data-test="left-column-footer-player"],
+[data-test="play-controls"],
+[data-test="footer-player"] > div:last-child,
+[data-test="footer-player"] [class*="_leftColumn_"],
+[data-test="footer-player"] [class*="playbackControls"] {
+    align-self: center !important;
+    align-items: center !important;
+    min-height: 64px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    transform: none !important;
+    scale: 1 !important;
+    rotate: 0deg !important;
+    z-index: 2 !important;
+}
+
+/* Left item information gets enough room but cannot consume the player. */
+[data-test="left-column-footer-player"] {
+    flex: 1 1 32% !important;
+    min-width: 220px !important;
+    max-width: 38% !important;
+    overflow: hidden !important;
+}
+
+/* Playback controls stay centered and compact. */
+[data-test="play-controls"],
+[data-test="footer-player"] [class*="playbackControls"] {
+    flex: 0 1 420px !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+/* Right-side controls stay inside the player. */
+[data-test="footer-player"] > div:last-child {
+    flex: 1 1 28% !important;
+    min-width: 210px !important;
+    max-width: 34% !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+    overflow: visible !important;
+}
+
+[data-test="footer-player"] [class*="imageryContainer"] {
+    flex: 0 0 64px !important;
+    width: 64px !important;
+    min-width: 64px !important;
+    max-width: 64px !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    margin: 0 12px 0 0 !important;
+    transform: none !important;
+    scale: 1 !important;
+    rotate: 0deg !important;
+}
+
+[data-test="footer-player"] [class*="currentMediaItemDetails"] {
+    min-width: 0 !important;
+    max-width: calc(100% - 76px) !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    transform: none !important;
+}
+
+/* Put the progress bar at the top edge of the player. */
+[data-test="footer-player"] [aria-label="Progress bar"] {
+    position: absolute !important;
+    top: -7px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    left: 20px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 22px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    scale: 1 !important;
+    rotate: 0deg !important;
+    z-index: 5 !important;
+}
+
+[data-test="footer-player"] [data-test="interaction-layer"] {
+    width: 100% !important;
+    height: 22px !important;
+    margin: 0 !important;
+    transform: none !important;
+}
+
+/* Compact oversized buttons without changing the font. */
+[data-test="footer-player"] button {
+    flex: 0 0 auto !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    margin: 0 1px !important;
+    transform: none !important;
+    scale: 1 !important;
+}
+
+/* Reserve enough page space so the taller player does not cover content. */
+.mainContent {
+    padding-bottom: 155px !important;
+}
+
+/* =========================================================
+   RESPONSIVE PLAYER
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    [data-test="footer-player"] {
+        height: 100px !important;
+        min-height: 100px !important;
+        max-height: 100px !important;
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+    }
+
+    [data-test="left-column-footer-player"] {
+        min-width: 180px !important;
+        max-width: 34% !important;
+    }
+
+    [data-test="footer-player"] > div:last-child {
+        min-width: 170px !important;
+        max-width: 30% !important;
+    }
+
+    [data-test="footer-player"] [class*="imageryContainer"] {
+        flex-basis: 56px !important;
+        width: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+        height: 56px !important;
+        min-height: 56px !important;
+        max-height: 56px !important;
+    }
+}
+
+@media (max-width: 760px) {
+    #mainHeader {
+        width: calc(100vw - 24px) !important;
+        max-width: calc(100vw - 24px) !important;
+    }
+
+    [data-test="footer-player"] {
+        right: 8px !important;
+        bottom: 8px !important;
+        left: 8px !important;
+        height: 92px !important;
+        min-height: 92px !important;
+        max-height: 92px !important;
+    }
+
+    [data-test="footer-player"] > div:last-child {
+        min-width: 0 !important;
+    }
+}
+
